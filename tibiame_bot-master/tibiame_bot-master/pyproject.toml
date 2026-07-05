@@ -1,0 +1,112 @@
+[project]
+name = "Tibiame_bot"
+version = "0.0.1"
+description = ""
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Maicon Neri" }]
+requires-python = ">=3.8"
+dependencies = []
+
+[project.scripts]
+project = "main:run"
+designer = "QtDesigner:designer"
+
+[tool.ruff]
+line-length = 250
+target-version = "py38"
+fix = false
+show-fixes = false
+indent-width = 4
+exclude = ["venv", ".venv", "env", ".env", "node_modules", "__pycache__"]
+
+[tool.ruff.lint]
+select = [
+    "ASYNC","A","ANN","B","BLE","C4","C90","COM","E","EM","ERA","EXE","F","FBT","FIX","I","ICN","ISC","Q","RET",
+    "RSE","S","SIM","SLF","T10","T20","TC","TD","TRY","UP","W","YTT","RUF","N",
+]
+ignore = ["T201", "COM812"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = [
+    "ANN001",
+    "ANN201",
+    "ANN202",
+    "S101",
+    "S106",
+    "SLF001",
+    "FBT002",
+    "TRY003",
+    "EM101",
+    "RET501",
+    "C901",
+]
+"src/main.py" = ["S106"]
+"src/core/handlers/ui_pack/receive_pack_list.py" = ["C901"]
+"stubs/**/*.pyi" = ["N802", "N803", "ANN401", "A002"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "lf"
+
+[tool.ruff.lint.isort]
+known-first-party = ["tibiame_bot"]
+
+[tool.pyright]
+typeCheckingMode = "basic"
+pythonVersion = "3.8"
+include = ["src", "tests"]
+exclude = [
+    # Ambientes virtuais
+    "**/venv",
+    "**/.venv",
+    "**/env",
+    "**/.env",
+
+    # Dependências
+    "**/node_modules",
+
+    # Caches
+    "**/__pycache__",
+    "**/.mypy_cache",
+    "**/.pytest_cache",
+    "**/.ruff_cache",
+
+    # Arquivos ocultos / sistemas
+    "**/.*",
+
+    # Builds
+    "**/dist",
+    "**/build",
+    "**/*.egg-info",
+]
+venv = ".venv"
+venvPath = "."
+executionEnvironments = [{ root = "src" }]
+extraPaths = ["src", "stubs"]
+
+[tool.pytest.ini_options]
+addopts = "-s --color=yes --tb=short"
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[dependency-groups]
+dev = [
+    "ruff",
+    "pyright",
+    "pytest",
+    "pytest-xdist",
+    "pyqt5designer>=5.14.1",
+    "pytest-cov>=5.0.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools]
+package-dir = { "" = "src" }

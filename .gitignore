@@ -1,0 +1,22 @@
+# Packaged client/runtime assets
+JTME.exe
+JTME.jar
+JTME/
+runtime/
+app/
+
+# OpenClaude local state
+.openclaude/
+
+# Python/local tooling
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+
+# Logs/output
+*.log
+out/
+build/
+dist/
